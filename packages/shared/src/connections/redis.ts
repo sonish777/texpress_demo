@@ -11,7 +11,7 @@ class RedisConnection {
 
     private constructor(public readonly ttl: number) {
         this.client = createClient({
-            url: `redis://${RedisConfig.Host}:${RedisConfig.Port}`,
+            url: String(process.env.REDIS_URL) || `redis://${RedisConfig.Host}:${RedisConfig.Port}`,
             username: RedisConfig.Username,
             password: RedisConfig.Password,
             legacyMode: process.env.NODE_ENV !== 'test',
