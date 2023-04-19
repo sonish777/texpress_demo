@@ -30,7 +30,7 @@ export class RabbitMQClient {
 
     private static async init(instance: RabbitMQClient) {
         instance._connection = await amqp.connect(
-            rabbitmqConfig.get('url') || String(process.env.RABBITMQ_URL || '')
+            String(process.env.RABBITMQ_URL || '') || rabbitmqConfig.get('url')
         );
         instance._channel = await instance._connection.createChannel();
         instance.logger.log('Queue connection established');

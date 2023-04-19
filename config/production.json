@@ -6,11 +6,11 @@
         "api:port": 8001
     },
     "database": {
-        "host": "",
+        "host": "localhost",
         "port": 5432,
-        "username": "",
-        "password": "",
-        "database_name": ""
+        "username": "postgres",
+        "password": "test",
+        "database_name": "texpress"
     },
     "jwt": {
         "access:secret": "t3X:pR3Ss",

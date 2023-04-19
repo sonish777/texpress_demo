@@ -8,5 +8,8 @@ export const RedisConfig = {
         process.env.REDIS_USERNAME || config.get<string>('redis.username'),
     Password:
         process.env.REDIS_PASSWORD || config.get<string>('redis.password'),
-    TTL: process.env.REDIS_TTL || config.get<number>('redis.ttl') || 1800, // 30 minutes
+    TTL:
+        Number(process.env.REDIS_TTL) ||
+        config.get<number>('redis.ttl') ||
+        1800, // 30 minutes
 };
