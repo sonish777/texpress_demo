@@ -3,11 +3,7 @@ import { DatabaseConfig } from './database';
 
 export const OrmConfig: DataSourceOptions = {
     type: 'postgres',
-    host: DatabaseConfig.HOST,
-    port: DatabaseConfig.PORT,
-    username: DatabaseConfig.USERNAME,
-    password: DatabaseConfig.PASSWORD,
-    database: DatabaseConfig.DATABASE_NAME,
+    url: process.env.DATABASE_URL,
     entities: [
         __dirname + '/../entities/*.entity{.ts,.js}',
         __dirname +

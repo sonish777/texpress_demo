@@ -7,6 +7,9 @@
         "apps/*",
         "packages/*"
     ],
+    "engines": {
+        "node": ">=16.0.0"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prettier:check": "prettier --check .",
@@ -30,8 +33,7 @@
         "migration:rollback": "npm run typeorm migration:revert -- -d ./packages/shared/src/data-sources/migration.data-source.ts",
         "seeder:rollback": "npm run typeorm migration:revert -- -d ./packages/shared/src/data-sources/seeder.data-source.ts",
         "test:e2e:api": "cross-env NODE_ENV=test jest --config ./test/api/e2e/jest-e2e.json --runInBand --detectOpenHandles --verbose --forceExit",
-        "docz:dev": "turbo run docz:dev --filter=docs",
-        "docz:deploy": "turbo run docz:deploy --filter=docs"
+        "start:cms": "node apps/texpress-cms/dist/index.js"
     },
     "repository": {
         "type": "git",
