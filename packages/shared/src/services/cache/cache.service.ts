@@ -9,17 +9,11 @@ export class CacheService {
     set(key: string, value: number, ttl?: number): Promise<any>;
     set(key: string, value: any, ttl = redis.ttl): Promise<any> {
         if (typeof value === 'string') {
-            return redis.client.set(key, value, {
-                EX: ttl,
-            });
+            return redis.client.set(key, value, 'EX', ttl);
         } else if (typeof value === 'object') {
-            return redis.client.set(key, JSON.stringify(value), {
-                EX: ttl,
-            });
+            return redis.client.set(key, JSON.stringify(value), 'EX', ttl);
         }
-        return redis.client.set(String(key), JSON.stringify(value), {
-            EX: ttl,
-        });
+        return redis.client.set(String(key), JSON.stringify(value), 'EX', ttl);
     }
 
     async get<K>(key: string): Promise<K | null> {

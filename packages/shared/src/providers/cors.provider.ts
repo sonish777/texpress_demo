@@ -4,12 +4,16 @@ import { ProviderStaticMethod } from 'core/providers';
 import config, { IConfig } from 'config';
 
 const serverConfig = config.get<IConfig>('server');
-const cmsUrl = `${serverConfig.get<string>(
-    'cms:host'
-)}:${serverConfig.get<string>('cms:port')}`;
-const apiUrl = `${serverConfig.get<string>(
-    'api:host'
-)}:${serverConfig.get<string>('api:port')}`;
+const cmsUrl =
+    process.env.CMS_URL ||
+    `${serverConfig.get<string>('cms:host')}:${serverConfig.get<string>(
+        'cms:port'
+    )}`;
+const apiUrl =
+    process.env.API_URL ||
+    `${serverConfig.get<string>('api:host')}:${serverConfig.get<string>(
+        'api:port'
+    )}`;
 
 export class CORSProvider implements ProviderStaticMethod<typeof CORSProvider> {
     public static register(app: Express, whitelist: string[] = []) {
@@ -20,6 +24,15 @@ export class CORSProvider implements ProviderStaticMethod<typeof CORSProvider> {
             app.use(
                 cors({
                     origin: function (requestOrigin, callback) {
+                        console.log(
+                            '🚀 ~ file: cors.provider.ts:33 ~ CORSProvider ~ register ~ requestOrigin:',
+                            requestOrigin
+                        );
+                        console.log(
+                            '🚀 ~ file: cors.provider.ts:20 ~ CORSProvider ~ register ~ whitelist:',
+                            whitelist
+                        );
+
                         if (
                             !requestOrigin ||
                             whitelist.indexOf(requestOrigin) !== -1
