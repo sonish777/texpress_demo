@@ -13,7 +13,7 @@ class RedisConnection {
         console.log("(process.env.REDIS_URL):", String(process.env.REDIS_URL))
         this.client = createClient({
             url: String(process.env.REDIS_URL) || `redis://${RedisConfig.Host}:${RedisConfig.Port}`,
-            legacyMode: process.env.NODE_ENV !== 'test',
+            // legacyMode: process.env.NODE_ENV !== 'test',
         });
         this.client
             .connect()
