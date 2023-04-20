@@ -28,12 +28,12 @@
         "typeorm": "cross-var ts-node --project ./packages/tsconfig/tsconfig.base.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
         "migration:create": "npm run typeorm migration:create ./apps/texpress-cms/src/database/migrations/$npm_config_name",
         "seeder:create": "npm run typeorm migration:create ./apps/texpress-cms/src/database/seeders/$npm_config_name",
-        "migration:run": "npm run typeorm migration:run -- -d ./packages/shared/src/data-sources/migration.data-source.ts",
-        "seeder:run": "npm run typeorm migration:run -- -d ./packages/shared/src/data-sources/seeder.data-source.ts",
+        "migration:run": "dotenv -- npm run typeorm migration:run -- -d ./packages/shared/src/data-sources/migration.data-source.ts",
+        "seeder:run": "dotenv -- npm run typeorm migration:run -- -d ./packages/shared/src/data-sources/seeder.data-source.ts",
         "migration:rollback": "npm run typeorm migration:revert -- -d ./packages/shared/src/data-sources/migration.data-source.ts",
         "seeder:rollback": "npm run typeorm migration:revert -- -d ./packages/shared/src/data-sources/seeder.data-source.ts",
         "test:e2e:api": "cross-env NODE_ENV=test jest --config ./test/api/e2e/jest-e2e.json --runInBand --detectOpenHandles --verbose --forceExit",
-        "start:cms": "cross-env NODE_ENV=production dotenv -- yarn migration:run && yarn seeder:run && node apps/texpress-cms/dist/index.js"
+        "start:cms": "yarn migration:run && yarn seeder:run && yarn build:js && cross-env NODE_ENV=production dotenv -- node apps/texpress-cms/dist/index.js"
     },
     "repository": {
         "type": "git",
@@ -135,7 +135,6 @@
         "@typescript-eslint/eslint-plugin": "^5.50.0",
         "@typescript-eslint/parser": "^5.50.0",
         "babel-plugin-module-resolver": "^5.0.0",
-        "babel-plugin-transform-runtime": "^6.23.0",
         "babel-plugin-transform-typescript-metadata": "^0.3.2",
         "concurrently": "^7.6.0",
         "cross-env": "^7.0.3",
