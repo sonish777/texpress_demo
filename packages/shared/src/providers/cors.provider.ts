@@ -24,15 +24,6 @@ export class CORSProvider implements ProviderStaticMethod<typeof CORSProvider> {
             app.use(
                 cors({
                     origin: function (requestOrigin, callback) {
-                        console.log(
-                            '🚀 ~ file: cors.provider.ts:33 ~ CORSProvider ~ register ~ requestOrigin:',
-                            requestOrigin
-                        );
-                        console.log(
-                            '🚀 ~ file: cors.provider.ts:20 ~ CORSProvider ~ register ~ whitelist:',
-                            whitelist
-                        );
-
                         if (
                             !requestOrigin ||
                             whitelist.indexOf(requestOrigin) !== -1
