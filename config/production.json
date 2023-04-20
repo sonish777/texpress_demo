@@ -1,8 +1,8 @@
 {
     "server": {
-        "cms:host": "http://localhost",
+        "cms:host": "https://texpress.onrender.com",
         "api:host": "http://localhost",
-        "cms:port": 8000,
+        "cms:port": 3000,
         "api:port": 8001
     },
     "database": {
