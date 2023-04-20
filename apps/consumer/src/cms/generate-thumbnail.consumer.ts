@@ -1,6 +1,6 @@
 import { ConsumeMessage } from 'amqplib';
 import { GetRepository } from 'core/entities';
-import { readFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync } from 'fs';
 import path from 'path';
 import { Consume, Consumer } from 'rabbitmq';
 import { QueueConfig } from 'shared/configs';
@@ -30,10 +30,27 @@ export class ThumbnailGenerator extends Consumer {
                 const [uploadColumn, thumbnailColumn] = mapper;
                 if (payload.uploadedFiles[uploadColumn]) {
                     const file = payload.uploadedFiles[uploadColumn][0];
-                    const fileContent = readFileSync(
-                        path.join(__dirname, '../../../texpress-cms', file.path)
-                    );
+                    const fileContent = readFileSync(file.path);
                     const thumbnailName = `thumb_${file.filename}`;
+                    if (
+                        !existsSync(
+                            path.join(
+                                __dirname,
+                                '../../../texpress-cms/public/uploads',
+                                payload.module,
+                                'thumbnails'
+                            )
+                        )
+                    ) {
+                        mkdirSync(
+                            path.join(
+                                __dirname,
+                                '../../../texpress-cms/public/uploads',
+                                payload.module,
+                                'thumbnails'
+                            )
+                        );
+                    }
                     sharp(fileContent)
                         .resize(200, 200)
                         .toFormat('jpeg')

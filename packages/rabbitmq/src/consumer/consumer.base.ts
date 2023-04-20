@@ -5,8 +5,11 @@ import { ConsoleLogger } from 'shared/logger';
 
 export class Consumer {
     public queues: { name: string; handler: Function }[] = [];
+    protected readonly logger: ConsoleLogger;
     @InjectRMQ() private client: RabbitMQClient;
-    protected readonly logger = Container.get(ConsoleLogger);
+    constructor() {
+        this.logger = Container.get(ConsoleLogger);
+    }
 
     async configure() {
         if (this.client instanceof Promise) {
