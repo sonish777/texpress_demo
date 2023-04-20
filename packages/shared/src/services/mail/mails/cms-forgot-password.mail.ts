@@ -5,7 +5,7 @@ import { Mailer } from '../mail-base.service';
 export class ForgotPasswordMailer extends Mailer {
     async send(data: Record<string, string>) {
         (await this.parseTemplate('CMS_FORGOT_PASSWORD', data))
-            .to(data.email)
+            .to(data.to_email)
             .sendEmail();
     }
 }
