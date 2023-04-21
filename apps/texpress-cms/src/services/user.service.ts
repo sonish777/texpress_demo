@@ -11,7 +11,6 @@ import { AuthEventsEmitter } from 'shared/events';
 import { extractMulterFileNames, generateToken } from 'shared/utils';
 import { ServerConfig } from '@cms/configs';
 import { Publisher } from 'rabbitmq';
-import { QueueConfig } from 'shared/configs';
 import { ActivityLogEventEmitter } from '@cms/events';
 
 @Service()
@@ -20,10 +19,7 @@ export class UserService extends BaseService<UserEntity> {
     protected readonly repository: Repository<UserEntity>;
     protected readonly filterColumns = ['firstName', 'lastName'];
 
-    constructor(
-        private readonly roleService: RoleService,
-        private readonly publisher: Publisher
-    ) {
+    constructor(private readonly roleService: RoleService) {
         super();
     }
 
@@ -85,15 +81,15 @@ export class UserService extends BaseService<UserEntity> {
         }
         const user = await this.create(createUserPayload);
         if (Object.keys(uploads).length > 0) {
-            this.publisher.publish(
-                QueueConfig.Cms.Exchange,
-                QueueConfig.Shared.GenerateThumbnailQueue,
-                {
-                    uploadedFiles,
-                    uploadThumbnailMap: [['avatar', 'thumbnail']],
-                    module: 'admins',
-                }
-            );
+            // this.publisher.publish(
+            //     QueueConfig.Cms.Exchange,
+            //     QueueConfig.Shared.GenerateThumbnailQueue,
+            //     {
+            //         uploadedFiles,
+            //         uploadThumbnailMap: [['avatar', 'thumbnail']],
+            //         module: 'admins',
+            //     }
+            // );
         }
         return {
             ...user,
