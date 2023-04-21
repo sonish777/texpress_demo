@@ -35,9 +35,9 @@ export class SwaggerDocProvider
         swaggerDocProps: SwaggerDocProviderProps
     ) {
         const { controllers, ...apiMetadata } = swaggerDocProps;
-        if (process.env.NODE_ENV === 'production') {
-            return;
-        }
+        // if (process.env.NODE_ENV === 'production') {
+        //     return;
+        // }
         const swaggerPaths: SwaggerPathSpec = {};
         let swaggerSchemaDefinitions: SchemaDefinitionSpec = {};
         const swaggerSpec: Partial<OAS3Definition> = swaggerJsDoc({
