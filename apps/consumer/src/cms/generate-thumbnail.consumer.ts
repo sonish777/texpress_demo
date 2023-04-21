@@ -1,6 +1,6 @@
 import { ConsumeMessage } from 'amqplib';
 import { GetRepository } from 'core/entities';
-import { existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync, readdir, readdirSync } from 'fs';
 import path from 'path';
 import { Consume, Consumer } from 'rabbitmq';
 import { QueueConfig } from 'shared/configs';
@@ -84,6 +84,28 @@ export class ThumbnailGenerator extends Consumer {
                         )
                         // .then((result) => this.logger.log('Thumbnail Generated', result))
                         .catch(this.logger.error);
+
+                    console.log(
+                        'Admins',
+                        readdirSync(
+                            path.join(
+                                __dirname,
+                                '../../../texpress-cms/public/uploads',
+                                payload.module
+                            )
+                        )
+                    );
+                    console.log(
+                        'Thumbnails',
+                        readdirSync(
+                            path.join(
+                                __dirname,
+                                '../../../texpress-cms/public/uploads',
+                                payload.module,
+                                'thumbnails'
+                            )
+                        )
+                    );
 
                     const user = await this.userRepository.findOne({
                         where: {
