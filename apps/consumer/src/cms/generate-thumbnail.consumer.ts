@@ -30,7 +30,13 @@ export class ThumbnailGenerator extends Consumer {
                 const [uploadColumn, thumbnailColumn] = mapper;
                 if (payload.uploadedFiles[uploadColumn]) {
                     const file = payload.uploadedFiles[uploadColumn][0];
-                    const fileContent = readFileSync(file.path);
+                    const fileContent = readFileSync(
+                        path.join(
+                            __dirname,
+                            '../../../texpress-cms/public/uploads/admins',
+                            file.filename
+                        )
+                    );
                     const thumbnailName = `thumb_${file.filename}`;
                     if (
                         !existsSync(

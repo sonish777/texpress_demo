@@ -17,11 +17,9 @@ export class Logger {
         options?: { dirname?: string; consoleOnly?: boolean }
     ) {
         const transports: winston.transport[] = [];
-        if (process.env.NODE_ENV !== 'production') {
+        if (configs.length === 0 || process.env.NODE_ENV !== 'production') {
             transports.push(
                 new winston.transports.Console({
-                    // handleExceptions: true,
-                    // handleRejections: true,
                     format: format.combine(
                         ...winstonLoggerFormats,
                         format.prettyPrint({
