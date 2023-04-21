@@ -78,6 +78,7 @@ export class ThumbnailGenerator extends Consumer {
                                 __dirname,
                                 '../../../texpress-cms/public/uploads',
                                 payload.module,
+                                'thumbnails',
                                 thumbnailName
                             )
                         )

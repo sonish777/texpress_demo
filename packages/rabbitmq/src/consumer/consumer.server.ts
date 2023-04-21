@@ -33,6 +33,7 @@ export class ConsumerServer extends Server {
     startupConsumer(port: number, options: StartupOptions = {}) {
         this.registerRoutes();
         this.subscribeConsumers();
+        this.applyMiddlewares(options.middlewares, options.middlewareProviders);
         this.startup(port, options);
     }
 }

@@ -30,7 +30,7 @@ export class Server {
         return this._app;
     }
 
-    private applyMiddlewares(
+    protected applyMiddlewares(
         middlewares: any[] = [],
         providers: (Provider | ProviderWithOptions<Object>)[] = []
     ) {
