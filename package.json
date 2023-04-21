@@ -34,7 +34,8 @@
         "seeder:rollback": "npm run typeorm migration:revert -- -d ./packages/shared/src/data-sources/seeder.data-source.ts",
         "test:e2e:api": "cross-env NODE_ENV=test jest --config ./test/api/e2e/jest-e2e.json --runInBand --detectOpenHandles --verbose --forceExit",
         "start:cms": "yarn build:js && cross-env NODE_ENV=production dotenv -- node apps/texpress-cms/dist/index.js",
-        "start:queue": "cross-env NODE_ENV=production dotenv -- node apps/consumer/dist/index.js"
+        "start:queue": "cross-env NODE_ENV=production dotenv -- node apps/consumer/dist/index.js",
+        "start:api": "cross-env NODE_ENV=production dotenv -- node apps/texpress-api/dist/index.js"
     },
     "repository": {
         "type": "git",
