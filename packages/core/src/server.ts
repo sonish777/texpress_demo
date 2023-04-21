@@ -50,7 +50,7 @@ export class Server {
         return this;
     }
 
-    private registerRoutes(routePrefixes: RoutePrefixes = {}) {
+    protected registerRoutes(routePrefixes: RoutePrefixes = {}) {
         if (!this.controllers) {
             return;
         }
