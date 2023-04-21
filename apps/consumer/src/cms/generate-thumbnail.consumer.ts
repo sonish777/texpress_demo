@@ -1,6 +1,6 @@
 import { ConsumeMessage } from 'amqplib';
 import { GetRepository } from 'core/entities';
-import { existsSync, mkdirSync, readFileSync } from 'fs';
+import { existsSync, mkdirSync } from 'fs';
 import path from 'path';
 import { Consume, Consumer } from 'rabbitmq';
 import { QueueConfig } from 'shared/configs';
@@ -8,6 +8,10 @@ import { UserEntity } from 'shared/entities';
 import sharp from 'sharp';
 import { Repository } from 'typeorm';
 import { Log } from '../logger';
+import axios from 'axios';
+import config, { IConfig } from 'config';
+
+const serverConfigs = config.get<IConfig>('server');
 
 export class ThumbnailGenerator extends Consumer {
     @GetRepository(UserEntity)
@@ -30,13 +34,6 @@ export class ThumbnailGenerator extends Consumer {
                 const [uploadColumn, thumbnailColumn] = mapper;
                 if (payload.uploadedFiles[uploadColumn]) {
                     const file = payload.uploadedFiles[uploadColumn][0];
-                    const fileContent = readFileSync(
-                        path.join(
-                            __dirname,
-                            '../../../texpress-cms/public/uploads/admins',
-                            file.filename
-                        )
-                    );
                     const thumbnailName = `thumb_${file.filename}`;
                     if (
                         !existsSync(
@@ -57,6 +54,21 @@ export class ThumbnailGenerator extends Consumer {
                             )
                         );
                     }
+                    const serverURL =
+                        process.env.CMS_URL ||
+                        `${serverConfigs.get('cms:host')}:${serverConfigs.get(
+                            'cms:port'
+                        )}`;
+                    const imageResponse = await axios.get(
+                        `${serverURL}/static/uploads/admins/${file.filename}`,
+                        {
+                            responseType: 'arraybuffer',
+                        }
+                    );
+                    const fileContent = Buffer.from(
+                        imageResponse.data,
+                        'base64'
+                    );
                     sharp(fileContent)
                         .resize(200, 200)
                         .toFormat('jpeg')
