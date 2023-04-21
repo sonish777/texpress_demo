@@ -78,34 +78,11 @@ export class ThumbnailGenerator extends Consumer {
                                 __dirname,
                                 '../../../texpress-cms/public/uploads',
                                 payload.module,
-                                'thumbnails',
                                 thumbnailName
                             )
                         )
                         // .then((result) => this.logger.log('Thumbnail Generated', result))
                         .catch(this.logger.error);
-
-                    console.log(
-                        'Admins',
-                        readdirSync(
-                            path.join(
-                                __dirname,
-                                '../../../texpress-cms/public/uploads',
-                                payload.module
-                            )
-                        )
-                    );
-                    console.log(
-                        'Thumbnails',
-                        readdirSync(
-                            path.join(
-                                __dirname,
-                                '../../../texpress-cms/public/uploads',
-                                payload.module,
-                                'thumbnails'
-                            )
-                        )
-                    );
 
                     const user = await this.userRepository.findOne({
                         where: {
