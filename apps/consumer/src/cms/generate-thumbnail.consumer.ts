@@ -35,25 +35,6 @@ export class ThumbnailGenerator extends Consumer {
                 if (payload.uploadedFiles[uploadColumn]) {
                     const file = payload.uploadedFiles[uploadColumn][0];
                     const thumbnailName = `thumb_${file.filename}`;
-                    if (
-                        !existsSync(
-                            path.join(
-                                __dirname,
-                                '../../../texpress-cms/public/uploads',
-                                payload.module,
-                                'thumbnails'
-                            )
-                        )
-                    ) {
-                        mkdirSync(
-                            path.join(
-                                __dirname,
-                                '../../../texpress-cms/public/uploads',
-                                payload.module,
-                                'thumbnails'
-                            )
-                        );
-                    }
                     const serverURL =
                         process.env.CMS_URL ||
                         `${serverConfigs.get('cms:host')}:${serverConfigs.get(
@@ -78,7 +59,6 @@ export class ThumbnailGenerator extends Consumer {
                                 __dirname,
                                 '../../../texpress-cms/public/uploads',
                                 payload.module,
-                                'thumbnails',
                                 thumbnailName
                             )
                         )
