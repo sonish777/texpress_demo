@@ -69,7 +69,7 @@ export class ThumbnailGenerator extends Consumer {
                         imageResponse.data,
                         'base64'
                     );
-                    sharp(fileContent)
+                    await sharp(fileContent)
                         .resize(200, 200)
                         .toFormat('jpeg')
                         .jpeg({ quality: 50 })
@@ -84,6 +84,29 @@ export class ThumbnailGenerator extends Consumer {
                         )
                         // .then((result) => this.logger.log('Thumbnail Generated', result))
                         .catch(this.logger.error);
+
+                    console.log(
+                        '--------------Avatars------------------',
+                        readdirSync(
+                            path.join(
+                                __dirname,
+                                '../../../texpress-cms/public/uploads',
+                                payload.module
+                            )
+                        )
+                    );
+
+                    console.log(
+                        '------------------Thumbnails-------------',
+                        readdirSync(
+                            path.join(
+                                __dirname,
+                                '../../../texpress-cms/public/uploads',
+                                payload.module,
+                                'thumbnails'
+                            )
+                        )
+                    );
 
                     const user = await this.userRepository.findOne({
                         where: {
