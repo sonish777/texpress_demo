@@ -18,37 +18,6 @@ export class HealthController {
             )
         );
 
-        if (
-            !existsSync(
-                path.join(
-                    __dirname,
-                    '../../../texpress-cms/public/uploads',
-                    'admins',
-                    'thumbnails'
-                )
-            )
-        ) {
-            mkdirSync(
-                path.join(
-                    __dirname,
-                    '../../../texpress-cms/public/uploads',
-                    'admins',
-                    'thumbnails'
-                )
-            );
-        }
-
-        console.log(
-            '------------------Thumbnails-------------',
-            readdirSync(
-                path.join(
-                    __dirname,
-                    '../../../texpress-cms/public/uploads',
-                    'admins',
-                    'thumbnails'
-                )
-            )
-        );
         return res.status(200).json({
             status: 'Running',
             code: 200,
