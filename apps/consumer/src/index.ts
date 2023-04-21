@@ -13,7 +13,7 @@ function bootstrap() {
         consumers,
         controllers,
     });
-    server.startupConsumer(9999, {
+    server.startupConsumer(Number(process.env.QUEUE_PORT || 9999), {
         name: 'Consumer Server',
         middlewareProviders: [
             provideMiddleware<StaticServeProviderOptions>(StaticServeProvider, {
